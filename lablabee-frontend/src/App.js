@@ -1,11 +1,16 @@
-import logo from "./logo.svg";
-import "./App.css";
+import "./style.css";
 import ListLab from "./component/list_lab";
+import MainRoute from "./route/mainRoute";
+import LabDetail from "./route/labDetailRoute";
+import { BrowserRouter } from "react-router-dom";
+
 function App() {
   return (
-    <div className="App">
-      <ListLab />
-    </div>
+    <BrowserRouter>
+      <div>
+        <MainRoute />
+      </div>
+    </BrowserRouter>
   );
 }
 

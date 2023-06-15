@@ -1,23 +1,7 @@
 import Card from "./card";
 
 import { useState } from "react";
-const ListLab = () => {
-  const [labs, setLabs] = useState([
-    { id: 0, name: "MPLS", description: "start with mpls", date: "05-12-2023" },
-    {
-      id: 1,
-      name: "BGP",
-      description: "Introduction to BGP ",
-      date: "03-11-2023",
-    },
-    {
-      id: 2,
-      name: "OSPF",
-      description: "OSPF routing protocle lab ",
-      date: "05-12-2023",
-    },
-  ]);
-
+const ListLab = ({ labs }) => {
   return labs.map((lab) => {
     return (
       <div className="list_lab">
