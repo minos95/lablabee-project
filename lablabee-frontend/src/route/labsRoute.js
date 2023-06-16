@@ -1,7 +1,11 @@
 import ListLab from "../component/list_lab";
+import { useSelector } from "react-redux";
 
-const LabsRoute = ({ labs }) => {
-  return <ListLab labs={labs} />;
+const LabsRoute = () => {
+  const labList = useSelector((state) => state.labList);
+
+  console.log("labList", labList);
+  return <ListLab labs={labList} />;
 };
 
 export default LabsRoute;

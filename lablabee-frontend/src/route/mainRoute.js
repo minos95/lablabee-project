@@ -8,33 +8,12 @@ import LabDetail from "./labDetailRoute";
 
 import { Redirect, Routes, Route } from "react-router-dom";
 const MainRoute = () => {
-  const [labs, setLabs] = useState([
-    {
-      id: 0,
-      name: "MPLS",
-      description: "start with mpls",
-      date: "05-12-2023",
-    },
-    {
-      id: 1,
-      name: "BGP",
-      description: "Introduction to BGP ",
-      date: "03-11-2023",
-    },
-    {
-      id: 2,
-      name: "OSPF",
-      description: "OSPF routing protocle lab ",
-      date: "05-12-2023",
-    },
-  ]);
-
   return (
     <>
       <Header />
       <Routes>
         <Route path="/home" element={<HomeRoute />} />
-        <Route path="/labs" element={<LabsRoute labs={labs} />} />
+        <Route path="/labs" element={<LabsRoute />} />
         <Route path="/labDetail" exact element={LabDetail} />
       </Routes>
       <Footer />
