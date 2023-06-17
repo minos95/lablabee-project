@@ -33,7 +33,7 @@ const Card = ({ lab, deleteLab }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={lab.name}
+        title={lab.title}
         subheader="September 14, 2016"
       />
 

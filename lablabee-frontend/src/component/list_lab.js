@@ -3,15 +3,31 @@ import Card from "./card";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { labActions } from "../store/labSlice";
-import { FormGroup, FormLabel, Input, Button, Container } from "@mui/material";
+import {
+  FormGroup,
+  FormLabel,
+  Input,
+  Button,
+  Container,
+  Select,
+  MenuItem,
+  TextField,
+} from "@mui/material";
 
+import {
+  DatePicker,
+  LocalizationProvider,
+  DateRangePicker,
+} from "@mui/x-date-pickers-pro";
 import Modal from "react-modal";
 const ListLab = ({ labs }) => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
+  const [technology, setTechnology] = useState("");
   const [description, setDescription] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
-
+  const [date_end, setDateEnd] = useState();
+  const [date_start, setDateStart] = useState();
   function openModal() {
     setIsOpen(true);
   }
@@ -26,13 +42,17 @@ const ListLab = ({ labs }) => {
 
   const addLab = () => {
     console.log("add lab");
-    dispatch(labActions.addLab({ name, description }));
+    dispatch(labActions.addLab({ title, description }));
     closeModal();
   };
 
   const deleteLab = (id) => {
     dispatch(labActions.deleteLab(id));
   };
+
+  function handleChange(value) {
+    setTechnology(value);
+  }
   return (
     <Container>
       <div>
@@ -62,21 +82,44 @@ const ListLab = ({ labs }) => {
         contentLabel="Example Modal"
       >
         <FormGroup>
-          <FormLabel>Enter your name:</FormLabel>
-          <Input
+          <TextField
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={title}
+            label="Title"
+            onChange={(e) => setTitle(e.target.value)}
+            variant="outlined"
+            sx={{ mb: 3 }}
+          />
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={technology}
+            label="Technology"
+            onChange={(e) => setTechnology(e.target.value)}
+            sx={{ mb: 3 }}
+          >
+            <MenuItem value={"network"}>Network</MenuItem>
+            <MenuItem value={"cloud"}>Cloud</MenuItem>
+            <MenuItem value={"database"}>Database</MenuItem>
+            <MenuItem value={"React"}>React</MenuItem>
+            <MenuItem value={"Nodejs"}>Nodejs</MenuItem>
+          </Select>
+          <DateRangePicker
+            localeText={{ start: "Check-in", end: "Check-out" }}
           />
 
           <FormLabel>Description</FormLabel>
-          <Input
+          <TextField
             type="text"
+            label="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            sx={{ mb: 3 }}
           />
 
-          <Button onClick={addLab}>valider</Button>
+          <Button onClick={addLab} sx={{ mb: 3 }}>
+            valider
+          </Button>
           <Button>cancell</Button>
         </FormGroup>
       </Modal>

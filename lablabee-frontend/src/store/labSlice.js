@@ -6,21 +6,27 @@ const labSlice = createSlice({
     labList: [
       {
         id: 0,
-        name: "MPLS",
+        title: "MPLS",
         description: "start with mpls",
-        date: "05-12-2023",
+        technology: "network",
+        date_start: "05-12-2023",
+        date_end: "05-12-2023",
       },
       {
         id: 1,
-        name: "BGP",
+        title: "BGP",
         description: "Introduction to BGP ",
-        date: "03-11-2023",
+        technology: "network",
+        date_start: "05-12-2023",
+        date_end: "05-12-2023",
       },
       {
         id: 2,
-        name: "OSPF",
+        title: "OSPF",
         description: "OSPF routing protocle lab ",
-        date: "05-12-2023",
+        technology: "network",
+        date_start: "05-12-2023",
+        date_end: "05-12-2023",
       },
     ],
   },
@@ -29,8 +35,11 @@ const labSlice = createSlice({
       const newLab = action.payload;
       state.labList.push({
         id: newLab.id,
-        name: newLab.name,
+        title: newLab.title,
         description: newLab.description,
+        technology: newLab.technology,
+        date_start: newLab.date_start,
+        date_end: newLab.date_end,
       });
     },
     editlab(state, action) {},
