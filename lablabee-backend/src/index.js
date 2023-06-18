@@ -1,10 +1,16 @@
+//this project has been created by rahal amine
+//find all route in routes folder
+//find all model in models folder
+
 require("./models/lab");
 const express = require("express"); //import express
 const mongoose = require("mongoose"); //import mongoose
 const bodyParser = require("body-parser");
 const labsRoute = require("./routes/labsRoute");
+const cors = require("cors");
 
 const app = express();
+app.use(cors()); //to  avoid cors error authorization
 
 app.use(bodyParser.json());
 app.use(labsRoute);

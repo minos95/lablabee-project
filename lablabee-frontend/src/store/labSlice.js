@@ -1,5 +1,5 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-
+import { createSlice } from "@reduxjs/toolkit";
+import lablabeeAPI from "../api/lablabeeAPI";
 const labSlice = createSlice({
   name: "labList",
   initialState: {
@@ -31,8 +31,12 @@ const labSlice = createSlice({
     ],
   },
   reducers: {
+    getLabs(state, action) {
+      state.labList = action.payload;
+    },
     addLab(state, action) {
       const newLab = action.payload;
+
       state.labList.push({
         id: newLab.id,
         title: newLab.title,
@@ -44,6 +48,9 @@ const labSlice = createSlice({
     },
     editlab(state, action) {},
     deleteLab(state, action) {
+      lablabeeAPI.delete("/Labs/" + action.payload).then((result) => {
+        console.log(result);
+      });
       return {
         ...state,
         labList: state.labList.filter((item) => item.id !== action.payload),
@@ -51,6 +58,7 @@ const labSlice = createSlice({
     },
   },
 });
+
 export const labActions = labSlice.actions;
 
 export default labSlice;

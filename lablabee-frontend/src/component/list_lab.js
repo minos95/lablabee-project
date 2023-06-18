@@ -14,11 +14,6 @@ import {
   TextField,
 } from "@mui/material";
 
-import {
-  DatePicker,
-  LocalizationProvider,
-  DateRangePicker,
-} from "@mui/x-date-pickers-pro";
 import Modal from "react-modal";
 const ListLab = ({ labs }) => {
   const dispatch = useDispatch();
@@ -104,9 +99,6 @@ const ListLab = ({ labs }) => {
             <MenuItem value={"React"}>React</MenuItem>
             <MenuItem value={"Nodejs"}>Nodejs</MenuItem>
           </Select>
-          <DateRangePicker
-            localeText={{ start: "Check-in", end: "Check-out" }}
-          />
 
           <FormLabel>Description</FormLabel>
           <TextField
