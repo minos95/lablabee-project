@@ -43,6 +43,7 @@ router.delete("/api/labs/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const response = await Lab.deleteOne({ _id: id });
+    console.log(response);
     return res.send(response);
   } catch (err) {
     console.log(err.message);

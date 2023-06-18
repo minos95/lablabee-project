@@ -21,7 +21,7 @@ const Card = ({ lab, deleteLab }) => {
           style={showMenuList ? { display: "block" } : { display: "none" }}
         >
           <MenuItem>Edit</MenuItem>
-          <MenuItem onClick={() => deleteLab(lab.id)}>Delete</MenuItem>
+          <MenuItem onClick={() => deleteLab(lab._id)}>Delete</MenuItem>
         </MenuList>
       </Paper>
       <CardHeader

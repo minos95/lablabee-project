@@ -1,34 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import lablabeeAPI from "../api/lablabeeAPI";
+import { useDispatch } from "react-redux";
 const labSlice = createSlice({
   name: "labList",
   initialState: {
-    labList: [
-      {
-        id: 0,
-        title: "MPLS",
-        description: "start with mpls",
-        technology: "network",
-        date_start: "05-12-2023",
-        date_end: "05-12-2023",
-      },
-      {
-        id: 1,
-        title: "BGP",
-        description: "Introduction to BGP ",
-        technology: "network",
-        date_start: "05-12-2023",
-        date_end: "05-12-2023",
-      },
-      {
-        id: 2,
-        title: "OSPF",
-        description: "OSPF routing protocle lab ",
-        technology: "network",
-        date_start: "05-12-2023",
-        date_end: "05-12-2023",
-      },
-    ],
+    labList: [],
   },
   reducers: {
     getLabs(state, action) {
@@ -48,17 +24,31 @@ const labSlice = createSlice({
     },
     editlab(state, action) {},
     deleteLab(state, action) {
-      lablabeeAPI.delete("/Labs/" + action.payload).then((result) => {
-        console.log(result);
-      });
+      console.log("action payload delete lab", action.payload);
       return {
         ...state,
-        labList: state.labList.filter((item) => item.id !== action.payload),
+        labList: state.labList.filter((lab) => lab._id !== action.payload),
       };
     },
   },
 });
 
 export const labActions = labSlice.actions;
+
+export const deleteLab = (_id) => {
+  return async (dispatch) => {
+    const deletehandler = async () => {
+      const response = await lablabeeAPI.delete("/labs/" + _id);
+      return response;
+    };
+    try {
+      const response = await deletehandler();
+
+      dispatch(labActions.deleteLab(_id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
 
 export default labSlice;

@@ -2,7 +2,7 @@ import Card from "./card";
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { labActions } from "../store/labSlice";
+import { labActions, deleteLab as deleteLabSlice } from "../store/labSlice";
 import {
   FormGroup,
   FormLabel,
@@ -41,8 +41,8 @@ const ListLab = ({ labs }) => {
     closeModal();
   };
 
-  const deleteLab = (id) => {
-    dispatch(labActions.deleteLab(id));
+  const deleteLab = (_id) => {
+    dispatch(deleteLabSlice(_id));
   };
 
   function handleChange(value) {
@@ -63,7 +63,7 @@ const ListLab = ({ labs }) => {
       <ul>
         {labs.map((lab) => {
           return (
-            <li className="list_lab" key={lab.id}>
+            <li className="list_lab" key={lab._id}>
               <Card lab={lab} deleteLab={deleteLab} />
             </li>
           );
@@ -112,7 +112,7 @@ const ListLab = ({ labs }) => {
           <Button onClick={addLab} sx={{ mb: 3 }}>
             valider
           </Button>
-          <Button>cancell</Button>
+          <Button onClick={closeModal}>cancell</Button>
         </FormGroup>
       </Modal>
     </Container>

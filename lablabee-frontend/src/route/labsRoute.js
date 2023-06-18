@@ -8,7 +8,7 @@ const LabsRoute = () => {
   useEffect(() => {
     //useEffect allow to excecute the function once page render
     getLabsHook(dispatch);
-  }, []);
+  }, [dispatch]);
   const labList = useSelector((state) => state.labList); // get state of lab's list from store
   console.log("lab list ", labList);
   console.log("labList", labList);
