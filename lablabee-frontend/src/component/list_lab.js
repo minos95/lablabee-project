@@ -34,8 +34,8 @@ const ListLab = ({ labs }) => {
   const [description, setDescription] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const [date_end, setDateEnd] = useState();
-  const [date_start, setDateStart] = useState();
+  const [end_date, setDateEnd] = useState();
+  const [start_date, setDateStart] = useState();
   function openModal() {
     setIsOpen(true);
   }
@@ -55,8 +55,8 @@ const ListLab = ({ labs }) => {
         title,
         description,
         technology,
-        date_start,
-        date_end,
+        start_date,
+        end_date,
       })
     );
     closeModal();
@@ -133,11 +133,13 @@ const ListLab = ({ labs }) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="start date"
+              disablePast
               onChange={(newValue) => setDateStart(newValue)}
               sx={{ mb: 3 }}
             />
             <DatePicker
               label="end date"
+              disablePast
               onChange={(newValue) => setDateEnd(newValue)}
               sx={{ mb: 3 }}
             />

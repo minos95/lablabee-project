@@ -7,8 +7,9 @@ const router = express.Router();
 router.post("/api/labs", async (req, res) => {
   // route to add lab on mongodb
   console.log("api add lab executed", req.body);
-  var { title, description, technology, start_date, end_date } = req.body; //get argument
-  start_date = new Date(start_date);
+  const { title, description, technology, start_date, end_date } = req.body; //get argument
+  console.log("type de start_date", typeof start_date);
+  console.log("type de title", typeof title);
   try {
     const lab = new Lab({
       title,

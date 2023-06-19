@@ -18,8 +18,8 @@ const labSlice = createSlice({
         title: newLab.title,
         description: newLab.description,
         technology: newLab.technology,
-        date_start: newLab.date_start,
-        date_end: newLab.date_end,
+        start_date: newLab.start_date,
+        end_date: newLab.end_date,
       });
     },
     editlab(state, action) {},
@@ -54,8 +54,8 @@ export const addLab = ({
   title,
   description,
   technology,
-  date_start,
-  date_end,
+  start_date,
+  end_date,
 }) => {
   return async (dispatch) => {
     try {
@@ -63,9 +63,10 @@ export const addLab = ({
         title,
         description,
         technology,
-        date_start,
-        date_end,
+        start_date,
+        end_date,
       });
+
       dispatch(labActions.addLab(response.data));
     } catch (err) {
       console.log(err);
