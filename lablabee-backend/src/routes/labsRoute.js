@@ -4,10 +4,11 @@ const Lab = mongoose.model("Lab");
 
 const router = express.Router();
 
-router.post("/api/lab", async (req, res) => {
-  // add lab on mongodb
-  const { title, description, technology, start_date, end_date } = req.body; //get argument
-
+router.post("/api/labs", async (req, res) => {
+  // route to add lab on mongodb
+  console.log("api add lab executed", req.body);
+  var { title, description, technology, start_date, end_date } = req.body; //get argument
+  start_date = new Date(start_date);
   try {
     const lab = new Lab({
       title,
@@ -17,7 +18,7 @@ router.post("/api/lab", async (req, res) => {
       end_date,
     }); // create lab document
     await lab.save(); //save the docmuent to mongodb
-    res.send("You add lab");
+    res.send(lab);
   } catch (err) {
     return res.status(422).send(err.message);
   }

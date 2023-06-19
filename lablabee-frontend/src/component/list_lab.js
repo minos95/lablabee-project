@@ -1,8 +1,14 @@
+import React from "react";
+
 import Card from "./card";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { labActions, deleteLab as deleteLabSlice } from "../store/labSlice";
+import {
+  labActions,
+  deleteLab as deleteLabSlice,
+  addLab as addLabSlice,
+} from "../store/labSlice";
 import {
   FormGroup,
   FormLabel,
@@ -13,6 +19,12 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+
+import dayjs from "dayjs";
 
 import Modal from "react-modal";
 const ListLab = ({ labs }) => {
@@ -21,6 +33,7 @@ const ListLab = ({ labs }) => {
   const [technology, setTechnology] = useState("");
   const [description, setDescription] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
+
   const [date_end, setDateEnd] = useState();
   const [date_start, setDateStart] = useState();
   function openModal() {
@@ -37,7 +50,15 @@ const ListLab = ({ labs }) => {
 
   const addLab = () => {
     console.log("add lab");
-    dispatch(labActions.addLab({ title, description }));
+    dispatch(
+      addLabSlice({
+        title,
+        description,
+        technology,
+        date_start,
+        date_end,
+      })
+    );
     closeModal();
   };
 
@@ -48,6 +69,7 @@ const ListLab = ({ labs }) => {
   function handleChange(value) {
     setTechnology(value);
   }
+
   return (
     <Container>
       <div>
@@ -108,6 +130,18 @@ const ListLab = ({ labs }) => {
             onChange={(e) => setDescription(e.target.value)}
             sx={{ mb: 3 }}
           />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="start date"
+              onChange={(newValue) => setDateStart(newValue)}
+              sx={{ mb: 3 }}
+            />
+            <DatePicker
+              label="end date"
+              onChange={(newValue) => setDateEnd(newValue)}
+              sx={{ mb: 3 }}
+            />
+          </LocalizationProvider>
 
           <Button onClick={addLab} sx={{ mb: 3 }}>
             valider

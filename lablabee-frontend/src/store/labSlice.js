@@ -14,7 +14,7 @@ const labSlice = createSlice({
       const newLab = action.payload;
 
       state.labList.push({
-        id: newLab.id,
+        _id: newLab._id,
         title: newLab.title,
         description: newLab.description,
         technology: newLab.technology,
@@ -45,6 +45,28 @@ export const deleteLab = (_id) => {
       const response = await deletehandler();
 
       dispatch(labActions.deleteLab(_id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const addLab = ({
+  title,
+  description,
+  technology,
+  date_start,
+  date_end,
+}) => {
+  return async (dispatch) => {
+    try {
+      const response = await lablabeeAPI.post("/labs/", {
+        title,
+        description,
+        technology,
+        date_start,
+        date_end,
+      });
+      dispatch(labActions.addLab(response.data));
     } catch (err) {
       console.log(err);
     }
