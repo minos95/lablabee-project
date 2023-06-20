@@ -1,41 +1,19 @@
 import React from "react";
-
 import Card from "./card";
-
+import { Button, Container } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {
-  labActions,
-  deleteLab as deleteLabSlice,
-  addLab as addLabSlice,
-} from "../store/labSlice";
-import {
-  FormGroup,
-  FormLabel,
-  Input,
-  Button,
-  Container,
-  Select,
-  MenuItem,
-  TextField,
-} from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 
+import { deleteLab as deleteLabSlice } from "../store/labSlice";
+import LabForm from "./labForm";
 import dayjs from "dayjs";
 
 import Modal from "react-modal";
 const ListLab = ({ labs }) => {
-  const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
-  const [technology, setTechnology] = useState("");
-  const [description, setDescription] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const dispatch = useDispatch();
 
-  const [end_date, setDateEnd] = useState();
-  const [start_date, setDateStart] = useState();
   function openModal() {
     setIsOpen(true);
   }
@@ -48,27 +26,14 @@ const ListLab = ({ labs }) => {
     setIsOpen(false);
   }
 
-  const addLab = () => {
-    console.log("add lab");
-    dispatch(
-      addLabSlice({
-        title,
-        description,
-        technology,
-        start_date,
-        end_date,
-      })
-    );
-    closeModal();
-  };
+  function closeModal() {
+    setIsOpen(false);
+    setEdit(false);
+  }
 
   const deleteLab = (_id) => {
     dispatch(deleteLabSlice(_id));
   };
-
-  function handleChange(value) {
-    setTechnology(value);
-  }
 
   return (
     <Container>
@@ -98,58 +63,11 @@ const ListLab = ({ labs }) => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <FormGroup>
-          <TextField
-            type="text"
-            value={title}
-            label="Title"
-            onChange={(e) => setTitle(e.target.value)}
-            variant="outlined"
-            sx={{ mb: 3 }}
-          />
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={technology}
-            label="Technology"
-            onChange={(e) => setTechnology(e.target.value)}
-            sx={{ mb: 3 }}
-          >
-            <MenuItem value={"network"}>Network</MenuItem>
-            <MenuItem value={"cloud"}>Cloud</MenuItem>
-            <MenuItem value={"database"}>Database</MenuItem>
-            <MenuItem value={"React"}>React</MenuItem>
-            <MenuItem value={"Nodejs"}>Nodejs</MenuItem>
-          </Select>
-
-          <FormLabel>Description</FormLabel>
-          <TextField
-            type="text"
-            label="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            sx={{ mb: 3 }}
-          />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="start date"
-              disablePast
-              onChange={(newValue) => setDateStart(newValue)}
-              sx={{ mb: 3 }}
-            />
-            <DatePicker
-              label="end date"
-              disablePast
-              onChange={(newValue) => setDateEnd(newValue)}
-              sx={{ mb: 3 }}
-            />
-          </LocalizationProvider>
-
-          <Button onClick={addLab} sx={{ mb: 3 }}>
-            valider
-          </Button>
-          <Button onClick={closeModal}>cancell</Button>
-        </FormGroup>
+        {edit ? (
+          <LabForm initialValues={{}} closeModal={closeModal} />
+        ) : (
+          <LabForm closeModal={closeModal} />
+        )}
       </Modal>
     </Container>
   );

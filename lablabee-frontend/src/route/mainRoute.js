@@ -14,7 +14,7 @@ const MainRoute = () => {
       <Routes>
         <Route path="/home" element={<HomeRoute />} />
         <Route path="/labs" element={<LabsRoute />} />
-        <Route path="/labDetail" exact element={LabDetail} />
+        <Route path="/labDetail/:_id" exact element={<LabDetail />} />
       </Routes>
       <Footer />
     </>
