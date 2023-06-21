@@ -1,7 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addLab as addLabSlice } from "../store/labSlice";
+import {
+  addLab as addLabSlice,
+  editLab as editLabSlice,
+} from "../store/labSlice";
+
+import { useNavigate } from "react-router-dom";
 
 import {
   FormGroup,
@@ -13,30 +18,52 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
+import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 
-const LabForm = ({ closeModal, initialValues }) => {
+const LabForm = ({ initialValues, edit }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  console.log("initialValues", initialValues.end_date);
+  const _id = initialValues._id;
   const [title, setTitle] = useState(initialValues.title);
   const [technology, setTechnology] = useState(initialValues.technology);
   const [description, setDescription] = useState(initialValues.description);
   const [end_date, setDateEnd] = useState(initialValues.end_date);
   const [start_date, setDateStart] = useState(initialValues.start_date);
 
-  const addLab = () => {
+  const addLab = (navigate) => {
     console.log("add lab");
     dispatch(
-      addLabSlice({
-        title,
-        description,
-        technology,
-        start_date,
-        end_date,
-      })
+      addLabSlice(
+        {
+          title,
+          description,
+          technology,
+          start_date,
+          end_date,
+        },
+        navigate
+      )
+    );
+  };
+  const editLab = (navigate) => {
+    dispatch(
+      editLabSlice(
+        {
+          title,
+          description,
+          technology,
+          start_date,
+          end_date,
+          _id,
+        },
+        navigate
+      )
     );
   };
   return (
@@ -81,12 +108,14 @@ const LabForm = ({ closeModal, initialValues }) => {
         <DatePicker
           label="start date"
           disablePast
+          value={dayjs(start_date)}
           onChange={(newValue) => setDateStart(newValue)}
           sx={{ mb: 3, mt: 3 }}
         />
         <DatePicker
           label="end date"
           disablePast
+          value={dayjs(end_date)}
           onChange={(newValue) => setDateEnd(newValue)}
           sx={{ mb: 3 }}
         />
@@ -94,19 +123,23 @@ const LabForm = ({ closeModal, initialValues }) => {
 
       <Button
         onClick={() => {
-          addLab();
-          closeModal();
+          if (typeof edit === "undefined") {
+            addLab(navigate);
+          } else {
+            editLab(navigate);
+          }
         }}
         sx={{ mb: 3 }}
+        variant="contained"
       >
         valider
       </Button>
-      <Button onClick={closeModal}>cancell</Button>
     </FormGroup>
   );
 };
 LabForm.defaultProps = {
   initialValues: {
+    _id: 0,
     title: "",
     description: "",
     technology: "",

@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 const Card = ({ lab, deleteLab }) => {
   const [showMenuList, setShowMenuList] = useState(false);
   const navigate = useNavigate();
+  const _id = lab._id;
   return (
     <CardMUI style={{ position: "relative" }} sx={{ mb: 13 }}>
       <Paper style={{ position: "absolute", right: -5, top: 30 }}>
@@ -57,7 +58,7 @@ const Card = ({ lab, deleteLab }) => {
       <CardActions>
         <Button
           variant="contained"
-          onClick={() => navigate("/labDetail/" + lab._id)}
+          onClick={() => navigate("/labDetail/", { state: { _id } })}
         >
           Detail
         </Button>

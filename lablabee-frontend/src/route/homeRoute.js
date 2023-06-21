@@ -16,6 +16,10 @@ const HomeRoute = () => {
       >
         <h1>Welcome to LABLABEE Project</h1>
         <h4>by Amine Rahal</h4>
+        <ul>
+          <li>liste de tache</li>
+          <li>liste de tache test qsdf qsdf qsdf qs df qsdf</li>
+        </ul>
       </Grid>
     </>
   );

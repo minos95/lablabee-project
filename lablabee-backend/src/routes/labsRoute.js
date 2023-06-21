@@ -24,9 +24,19 @@ router.post("/api/labs", async (req, res) => {
     return res.status(422).send(err.message);
   }
 });
-router.put("/api/labs", async (req, res) => {
+router.put("/api/labs/:id", async (req, res) => {
   //update lab on mongodb
-  return res.send("updated");
+  console.log("------------------put lab executed id ", req.params.id);
+  const { title, description, technology, start_date, end_date } = req.body;
+  try {
+    const lab = await Lab.findOneAndUpdate(
+      { _id: req.params.id },
+      { title, description, technology, start_date, end_date }
+    );
+    return res.send(lab);
+  } catch (err) {
+    return res.status(422).send(err.message);
+  }
 });
 router.get("/api/Labs", async (req, res) => {
   try {
