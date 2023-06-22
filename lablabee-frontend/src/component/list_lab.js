@@ -34,7 +34,7 @@ const ListLab = ({ labs }) => {
   };
 
   return (
-    <Container>
+    <Container sx={{ mt: 10, mb: 10 }} width="lg">
       <div>
         <Button
           onClick={() => navigate("/labAction", { state: {} })}
@@ -44,6 +44,7 @@ const ListLab = ({ labs }) => {
         >
           Ajouter
         </Button>
+        <h2>Explore Labs</h2>
       </div>
       <div>
         {isLoading ? (

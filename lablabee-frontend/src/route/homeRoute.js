@@ -14,12 +14,12 @@ const HomeRoute = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <h1>Welcome to LABLABEE Project</h1>
-        <h4>by Amine Rahal</h4>
-        <ul>
-          <li>liste de tache</li>
-          <li>liste de tache test qsdf qsdf qsdf qs df qsdf</li>
-        </ul>
+        <h1>
+          Welcome to{" "}
+          <span style={{ color: "rgb(6, 131, 131)" }}>LABLABEE </span> Technical
+          Test
+        </h1>
+        <h4 style={{ color: "rgb(6, 131, 131)" }}>by Amine Rahal</h4>
       </Grid>
     </>
   );

@@ -9,10 +9,9 @@ const LabsRoute = () => {
     //useEffect allow to excecute the function once page render
     getLabsHook(dispatch);
   }, [dispatch]);
-  const labList = useSelector((state) => state.labList); // get state of lab's list from store
-  console.log("lab list ", labList);
-  console.log("labList", labList);
-  return <ListLab labs={labList} />;
+  const labList = useSelector((state) => state.labList); // get state of lab's list from redux store
+
+  return <ListLab style={{ margintTop: 20 }} labs={labList} />;
 };
 
 export default LabsRoute;

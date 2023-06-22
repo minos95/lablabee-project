@@ -7,44 +7,53 @@ const router = express.Router();
 router.post("/api/labs", async (req, res) => {
   // route to add lab on mongodb
   console.log("api add lab executed", req.body);
-  const { title, description, technology, start_date, end_date } = req.body; //get argument
+  //get params from client side
+  const { title, description, technology, start_date, end_date } = req.body;
   console.log("type de start_date", typeof start_date);
   console.log("type de title", typeof title);
   try {
+    // create lab document
     const lab = new Lab({
       title,
       description,
       technology,
       start_date,
       end_date,
-    }); // create lab document
-    await lab.save(); //save the docmuent to mongodb
+    });
+    //save the docmuent to mongodb
+    await lab.save();
     res.send(lab);
   } catch (err) {
+    //send error to client side
     return res.status(422).send(err.message);
   }
 });
 router.put("/api/labs/:id", async (req, res) => {
-  //update lab on mongodb
-  console.log("------------------put lab executed id ", req.params.id);
+  //update lab on mongodb databse
+  //get params from client side
   const { title, description, technology, start_date, end_date } = req.body;
   try {
+    //send request  to find and update lab on mongodb databse
     const lab = await Lab.findOneAndUpdate(
       { _id: req.params.id },
       { title, description, technology, start_date, end_date }
     );
+    // send response to client side
     return res.send(lab);
   } catch (err) {
+    //send error to client side
     return res.status(422).send(err.message);
   }
 });
 router.get("/api/Labs", async (req, res) => {
   try {
-    const labs = await Lab.find({}); //return all labs from mongodb
+    //return all labs from mongodb
+    const labs = await Lab.find({});
     console.log("/api/getLabs executed");
-
+    //send labs to client side
     return res.send(labs);
   } catch (err) {
+    //send error to client side
     res.status(422).send(err.message);
   }
 });
@@ -54,11 +63,14 @@ router.delete("/api/labs/:id", async (req, res) => {
   console.log(req.params);
   const id = req.params.id;
   try {
+    //filter and delete on database
     const response = await Lab.deleteOne({ _id: id });
     console.log(response);
+    //send  response to client side
     return res.send(response);
   } catch (err) {
     console.log(err.message);
+    //send error to client side
     return res.status(422).send(err.message);
   }
 });

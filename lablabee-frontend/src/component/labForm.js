@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import {
   FormGroup,
   FormLabel,
+  FormControl,
+  InputLabel,
   Input,
   Button,
   Container,
@@ -78,20 +80,32 @@ const LabForm = ({ initialValues, edit }) => {
         required
         inputProps={{ maxLength: 30 }}
       />
-      <Select
-        label="Technology"
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={technology}
-        onChange={(e) => setTechnology(e.target.value)}
-        sx={{ mb: 3 }}
-      >
-        <MenuItem value={"network"}>Network</MenuItem>
-        <MenuItem value={"cloud"}>Cloud</MenuItem>
-        <MenuItem value={"database"}>Database</MenuItem>
-        <MenuItem value={"React"}>React</MenuItem>
-        <MenuItem value={"Nodejs"}>Nodejs</MenuItem>
-      </Select>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Technology</InputLabel>
+        <Select
+          label="Technology"
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={technology}
+          onChange={(e) => setTechnology(e.target.value)}
+          sx={{ mb: 3 }}
+        >
+          <MenuItem value={"Network"}>Network</MenuItem>
+          <MenuItem value={"Cloud"}>Cloud</MenuItem>
+          <MenuItem value={"Database"}>Database</MenuItem>
+          <MenuItem value={"Artificial intelligence"}>
+            Artificial intelligence
+          </MenuItem>
+          <MenuItem value={"data science"}>Data science</MenuItem>
+          <MenuItem value={"Information technology"}>
+            Information Technology '
+          </MenuItem>
+          <MenuItem value={"Devops"}>Devops</MenuItem>
+          <MenuItem value={"Software"}>Software</MenuItem>
+          <MenuItem value={"Internet of things"}>Internet of things</MenuItem>
+          <MenuItem value={"Nertwork security"}>Network Security</MenuItem>
+        </Select>
+      </FormControl>
 
       <FormLabel>Description</FormLabel>
       <TextareaAutosize

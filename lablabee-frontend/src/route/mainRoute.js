@@ -1,3 +1,5 @@
+//define all routes
+
 import React, { useState } from "react";
 import ListLab from "../component/list_lab";
 import Footer from "../component/footer";
@@ -7,7 +9,7 @@ import LabsRoute from "./labsRoute";
 import LabDetail from "./labDetailRoute";
 import LabAction from "./labActionRoute";
 
-import { Redirect, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 const MainRoute = () => {
   return (
     <>

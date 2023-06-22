@@ -1,23 +1,21 @@
 //this project has been created by rahal amine
 //find all route in routes folder
-//find all model in models folder
+//find all model schema in models folder
 
 require("./models/lab");
 const express = require("express"); //import express
 const mongoose = require("mongoose"); //import mongoose
-const bodyParser = require("body-parser");
-const labsRoute = require("./routes/labsRoute");
-const cors = require("cors");
+const bodyParser = require("body-parser"); //import bodyParser
+const labsRoute = require("./routes/labsRoute"); //import labs Route
+const cors = require("cors"); //import cors
 
 const app = express();
-app.use(cors()); //to  avoid cors error authorization
+
+//to  avoid cors error authorization
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(labsRoute);
-
-app.get("/", (req, res) => {
-  res.send("hi there");
-});
 
 //------------------Connect to mongodb database
 const mongoUri =
@@ -35,7 +33,7 @@ mongoose.connection.on("error", (err) => {
   console.error("Error connecting to mongo", err);
 });
 
-//------------Open server port 3001
+//------------Open server on port 3001
 app.listen(3001, () => {
   console.log("Listening on port 3001");
 });

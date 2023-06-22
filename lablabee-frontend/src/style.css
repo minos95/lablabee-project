@@ -6,6 +6,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+ul {
+  display: inline-block;
+  list-style: none;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -26,7 +30,7 @@ code {
 .header {
   background-color: rgb(6, 131, 131);
   width: 100%;
-  padding: 25px;
+  padding: 15px;
   color: white;
 }
 
@@ -50,9 +54,22 @@ code {
   width: 100%;
   background-color: rgb(53, 52, 52);
   color: white;
-  text-align: center;
-  padding: 50px;
+
+  padding: 25px;
   margin-top: 50px;
+}
+
+.footer-social-media {
+  display: flex;
+}
+.social-media :hover {
+  color: rgb(6, 131, 131);
+}
+.icon-size {
+  font-size: 40;
+}
+.text-center {
+  text-align: "center";
 }
 .list_lab {
   margin-right: 25px;

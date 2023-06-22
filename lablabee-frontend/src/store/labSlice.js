@@ -1,7 +1,12 @@
+// create and configure redux store
+
 import { createSlice } from "@reduxjs/toolkit";
 import lablabeeAPI from "../api/lablabeeAPI";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+//  define the reducer and action creators via `createSlice`
+
 const labSlice = createSlice({
   name: "labList",
   initialState: {
@@ -69,9 +74,14 @@ function refreshPage() {
   window.location.reload(false);
 }
 
+// export the plain action creators
 export const labActions = labSlice.actions;
 
-export const deleteLab = (_id) => {
+// Define a thunk that dispatches those action creators
+
+export const deleteLab = (_id, navigate) => {
+  // deleteLab function send delete request to server for deleting lab from database
+
   return async (dispatch) => {
     const deletehandler = async () => {
       const response = await lablabeeAPI.delete("/labs/" + _id);
@@ -82,7 +92,9 @@ export const deleteLab = (_id) => {
       const response = await deletehandler();
 
       dispatch(labActions.deleteLab(_id));
+      navigate("/labs");
     } catch (err) {
+      dispatch(labActions.addError(err));
       console.log(err);
     }
     dispatch(labActions.editLoading(false));
@@ -92,6 +104,7 @@ export const addLab = (
   { title, description, technology, start_date, end_date },
   navigate
 ) => {
+  // addLab function send post request to server for adding lab to database
   return async (dispatch) => {
     dispatch(labActions.editLoading(true));
     try {
@@ -113,18 +126,10 @@ export const addLab = (
 };
 
 export const editLab = (
-  {
-    //--------------------------------redux thunk
-    title,
-    description,
-    technology,
-    start_date,
-    end_date,
-    _id,
-  },
+  { title, description, technology, start_date, end_date, _id },
   navigate
 ) => {
-  console.log("state", labSlice);
+  // editLab function send put request to server for edit lab to database
   const edithandler = async () => {
     const response = await lablabeeAPI.put("/labs/" + _id, {
       title,
@@ -151,6 +156,7 @@ export const editLab = (
       );
       navigate("/labDetail/", { state: { _id } });
     } catch (err) {
+      dispatch(labActions.addError(err));
       console.log(err);
     }
     dispatch(labActions.editLoading(false));
